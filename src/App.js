@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import DeckList from './components/DeckList';
 
 class App extends React.Component {
   constructor() {
@@ -18,11 +19,11 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       deckData: [],
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.clearFields = this.clearFields.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -52,7 +53,7 @@ class App extends React.Component {
 
   handleDelete({ target }) {
     const { deckData } = this.state;
-    const id = target.name;
+    const { id } = target;
     const newList = deckData.filter((card) => id !== card.cardName);
     this.setState({
       deckData: newList,
@@ -89,8 +90,10 @@ class App extends React.Component {
   }
 
   checkTrunfo() {
-    const { cardTrunfo } = this.state;
-    if (cardTrunfo) this.setState({ hasTrunfo: true });
+    const { deckData } = this.state;
+    if (deckData.some((card) => card.cardTrunfo === true)) {
+      this.setState({ hasTrunfo: true });
+    }
   }
 
   render() {
@@ -124,26 +127,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <div>
-          { deckData.map((e) => (
-            <div key={ e.cardName }>
-              <Card
-                cardName={ e.cardName }
-                cardDescription={ e.cardDescription }
-                cardAttr1={ e.cardAttr1 }
-                cardAttr2={ e.cardAttr2 }
-                cardAttr3={ e.cardAttr3 }
-                cardImage={ e.cardImage }
-                cardRare={ e.cardRare }
-                cardTrunfo={ e.cardTrunfo }
-              />
-              <button
-                type="button"
-                id={ e.cardName }
-              >
-                Excluir
-              </button>
-            </div>
-          )) }
+          <DeckList deckData={ deckData } handleDelete={ this.handleDelete } />
         </div>
       </div>
     );

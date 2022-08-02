@@ -7,7 +7,7 @@ class Form extends Component {
       cardAttr3, cardImage, cardRare, isSaveButtonDisabled,
       onInputChange, onSaveButtonClick, cardTrunfo, hasTrunfo } = this.props;
     const gotTrunfo = (
-      <p>Você já tem um Super Trunfo em seu baralho</p>
+      <p data-testid="trunfo-input">Você já tem um Super Trunfo em seu baralho</p>
     );
     const noTrunfo = (
       <label htmlFor="trunfo-input">

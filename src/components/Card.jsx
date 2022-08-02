@@ -8,14 +8,14 @@ class Card extends Component {
   }
 
   trunfoRenderer(state) {
-    if (state) return <p data-testid="trunfo-card"><i><b>Super Trunfo</b></i></p>;
+    return state ? <p data-testid="trunfo-card"><i><b>Super Trunfo</b></i></p> : '';
   }
 
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo } = this.props;
     return (
-      <section>
+      <div>
         <h4 data-testid="name-card">{ cardName }</h4>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         <p data-testid="description-card">{ cardDescription }</p>
@@ -24,7 +24,7 @@ class Card extends Component {
         <p data-testid="attr3-card">{ cardAttr3 }</p>
         <p data-testid="rare-card">{ cardRare }</p>
         {this.trunfoRenderer(cardTrunfo)}
-      </section>
+      </div>
     );
   }
 }
